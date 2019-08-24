@@ -4,8 +4,15 @@
 import math
 
 
-def spindel_speed(cutting_speed: float, mill_dia: float) -> float:
+def spindel_rpm(cutting_speed: float, mill_dia: float) -> float:
 
     """ Calculating the spindel speed based on given cutting speed and mill diameter """
 
     return (cutting_speed * 1000) / (math.pi * mill_dia)
+
+
+def feedrate(spindel_rpm: float, num_of_teeth: int, feed_per_tooth: float) -> float:
+
+    """ Feedrate calculations for the mill """
+
+    return spindel_rpm * num_of_teeth * feed_per_tooth
