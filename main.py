@@ -3,6 +3,7 @@
 
 from kivy.app import App
 from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -11,6 +12,8 @@ from kivy.config import Config
 
 from moduler.customwidgets.mytextinput import MyTextInput
 from moduler.customwidgets.mylabel import MyLabel
+from moduler.cuttingdata_calculations import spindel_rpm
+from moduler.cuttingdata_calculations import feedrate
 
 Config.set('graphics', 'resizable', False)
 Config.set('graphics', 'width', '800')
@@ -23,8 +26,14 @@ class MainBody(TabbedPanel):
 
     def __init__(self, **kwargs):
         super(MainBody, self).__init__(**kwargs)
-        self.result1: str = ""
-        self.result2: str = ""
+
+        self.result1: str = StringProperty()
+        self.result2: str = StringProperty()
+
+        self.text1 = None
+        self.text2 = None
+        self.text3 = None
+        self.text4 = None
 
         self.do_default_tab = False
 
@@ -44,34 +53,34 @@ class MainBody(TabbedPanel):
         ################################################################################################################
         cuttingspeed_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
-        text1 = MyTextInput(hint_text="m/min", multiline=False, write_tab=False, font_size=20)
+        self.text1 = MyTextInput(hint_text="m/min", multiline=False, write_tab=False, font_size=20)
         cuttingspeed_layout.add_widget(Label(text="Cutting Speed:", font_size=20))
-        cuttingspeed_layout.add_widget(text1)
+        cuttingspeed_layout.add_widget(self.text1)
 
         ################################################################################################################
         milldia_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
-        text2 = MyTextInput(hint_text="ø", multiline=False, write_tab=False, font_size=20)
+        self.text2 = MyTextInput(hint_text="ø", multiline=False, write_tab=False, font_size=20)
         milldia_layout.add_widget(Label(text="Mill Diameter:", font_size=20))
-        milldia_layout.add_widget(text2)
+        milldia_layout.add_widget(self.text2)
 
         ################################################################################################################
         numteeth_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
-        text3 = MyTextInput(hint_text="z", multiline=False, write_tab=False, font_size=20)
+        self.text3 = MyTextInput(hint_text="z", multiline=False, write_tab=False, font_size=20)
         numteeth_layout.add_widget(Label(text="Number of Teeths:", font_size=20))
-        numteeth_layout.add_widget(text3)
+        numteeth_layout.add_widget(self.text3)
 
         ################################################################################################################
         feedtooth_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
-        text4 = MyTextInput(hint_text="mm/o", multiline=False, write_tab=False, font_size=20, on_text_validate=self.test)
+        self.text4 = MyTextInput(hint_text="mm/o", multiline=False, write_tab=False, font_size=20, on_text_validate=self.calculate)
         feedtooth_layout.add_widget(Label(text="Feed per Tooth:", font_size=20))
-        feedtooth_layout.add_widget(text4)
+        feedtooth_layout.add_widget(self.text4)
 
         ################################################################################################################
         button_layout = BoxLayout(size_hint_y=None, height="40dp")
-        button_layout.add_widget(Button(text="Calculate!", on_press=self.test))
+        button_layout.add_widget(Button(text="Calculate!", on_press=self.calculate))
 
         ################################################################################################################
         spacer_layout = BoxLayout()
@@ -105,8 +114,25 @@ class MainBody(TabbedPanel):
 
         self.tab1.add_widget(main_layout)
 
-    def test(self, touch):
-        print("Hello World!")
+    def calculate(self, *args):
+        print(self.text1.text)
+        print(self.text2.text)
+        print(self.text3.text)
+        print(self.text4.text)
+
+        try:
+            cuttingspeed = float(self.text1.text.replace(',', '.'))
+            milldia = float(self.text2.text.replace(',', '.'))
+            numz = float(self.text3.text.replace(',', '.'))
+            feedprtooth = float(self.text4.text.replace(',', '.'))
+        except ValueError as e:
+            print(e)
+
+        spindelspeed = spindel_rpm(cuttingspeed, milldia)
+        feed = feedrate(spindelspeed, numz, feedprtooth)
+
+        self.result1 = str(round(spindelspeed, 0))
+        self.result2 = str(round(feed, 0))
 
 
 class CncCalculators(App):

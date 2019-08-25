@@ -4,7 +4,7 @@
 import math
 
 
-def spindel_rpm(cutting_speed: float, mill_dia: float) -> float:
+def spindel_rpm(cutting_speed: float = 1, mill_dia: float = 1) -> float:
 
     """ Calculating the spindel speed based on given cutting speed and mill diameter """
 
