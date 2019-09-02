@@ -20,7 +20,9 @@ def helix_angle(hole_dia: float, mill_dia: float, zstep: float) -> float:
 
     """ Calculating the ramping angle of the toolpath """
 
-    return (math.sin(1.57079633) * zstep) / ((hole_dia - mill_dia) * math.pi)
+    circumference = (hole_dia - mill_dia) * 3.14
+
+    return math.degrees((math.sin(1.57079633) * zstep) / ((hole_dia - mill_dia) * 3.14))
 
 
 def material_removal(cut_depth: float, cut_width: float, feedrate: float) -> float:

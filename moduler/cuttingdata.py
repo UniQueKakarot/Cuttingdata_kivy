@@ -60,7 +60,7 @@ class Cuttingdata(GridLayout):
 
         ################################################################################################################
         button_layout = BoxLayout(size_hint_y=None, height="40dp")
-        button_layout.add_widget(Button(text="Calculate!", on_press=self.calculate))
+        button_layout.add_widget(Button(text="Calculate!", font_size=20, on_press=self.calculate))
 
         ################################################################################################################
         spacer_layout = BoxLayout()
