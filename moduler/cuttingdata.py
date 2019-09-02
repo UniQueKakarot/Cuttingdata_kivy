@@ -1,5 +1,4 @@
 
-from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -7,8 +6,6 @@ from kivy.uix.label import Label
 
 from moduler.customwidgets.mytextinput import MyTextInput
 from moduler.customwidgets.mylabel import MyLabel
-from moduler.cuttingdata_calculations import spindel_rpm
-from moduler.cuttingdata_calculations import feedrate
 from moduler.cuttingdata_calculations import cuttingdata
 
 
@@ -119,8 +116,7 @@ class Cuttingdata(GridLayout):
         except ValueError:
             feedprtooth = 0
 
-        # spindelspeed = spindel_rpm(cuttingspeed, milldia)
-        # feed = feedrate(spindelspeed, numz, feedprtooth)
+        # Cuttingdata function is in its own file
         calculation_result = cuttingdata(cuttingspeed, milldia, numz, feedprtooth)
 
         self.res_label1.text = str(int(round(calculation_result[0], 0)))

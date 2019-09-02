@@ -14,3 +14,17 @@ def cuttingdata(cut_speed: float, mill_dia: float, numz: float, feed_per_tooth: 
     mill_feed = spindel_speed * numz * feed_per_tooth
 
     return spindel_speed, mill_feed
+
+
+def helix_angle(hole_dia: float, mill_dia: float, zstep: float) -> float:
+
+    """ Calculating the ramping angle of the toolpath """
+
+    return (math.sin(1.57079633) * zstep) / ((hole_dia - mill_dia) * math.pi)
+
+
+def material_removal(cut_depth: float, cut_width: float, feedrate: float) -> float:
+
+    """ Calculates the amount of material beeing removed in cubic centimeters """
+
+    return (cut_depth * cut_width * feedrate) / 1000
