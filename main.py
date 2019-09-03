@@ -7,6 +7,8 @@ from kivy.config import Config
 
 from moduler.cuttingdata import Cuttingdata
 from moduler.helix_angle import HelixAngle
+from moduler.materialremoval import MaterialRemoval
+
 Config.set('graphics', 'resizable', False)
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '600')
@@ -25,12 +27,15 @@ class MainBody(TabbedPanel):
 
         self.tab1 = TabbedPanelItem(text="Cutting Speed")
         self.tab2 = TabbedPanelItem(text="Toolpath Angle")
+        self.tab3 = TabbedPanelItem(text="Material Removal")
 
         self.cuttingdata()
         self.helix_angle()
+        self.material_removal()
 
         self.add_widget(self.tab1)
         self.add_widget(self.tab2)
+        self.add_widget(self.tab3)
         self.default_tab = self.tab1
 
     def cuttingdata(self):
@@ -42,6 +47,10 @@ class MainBody(TabbedPanel):
     def helix_angle(self):
 
         HelixAngle(self.tab2)
+
+    def material_removal(self):
+
+        MaterialRemoval(self.tab3)
 
 
 class CncCalculators(App):
