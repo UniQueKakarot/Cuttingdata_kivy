@@ -25,7 +25,7 @@ class ToolMonitor(BoxLayout):
         for i in range(100):
             test2.add_widget(Label(text=f"Tool{i+1}", size_hint_y=None, height=20))
         
-        scroll_test = ScrollView(size_hint=(1, None), size=(Window.width, Window.height - 55))
+        scroll_test = ScrollView(size_hint=(1, None), size=(Window.width, Window.height - 75))
         scroll_test.add_widget(test2)
 
         self.add_widget(test)
