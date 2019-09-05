@@ -26,6 +26,7 @@ class ToolMonitor(BoxLayout):
         self.config = configparser.ConfigParser()
         self.config.read(self.config_path)
         #######################################################################
+        
         test = GridLayout(cols=1, spacing=1, padding=10)
 
         for i in range(11):
