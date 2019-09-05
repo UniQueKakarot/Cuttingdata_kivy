@@ -1,4 +1,7 @@
 
+import configparser
+from pathlib import Path
+
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
@@ -14,6 +17,15 @@ class ToolMonitor(BoxLayout):
 
         self.master = tab_controll
 
+        # Config generation
+        # ---------------------------------------------------------------------
+        self.config_path = Path('./moduler/toolmonitor_data/config/Toolmonitor.ini')
+
+        self._config_gen()
+
+        self.config = configparser.ConfigParser()
+        self.config.read(self.config_path)
+        #######################################################################
         test = GridLayout(cols=1, spacing=1, padding=10)
 
         for i in range(11):
@@ -32,3 +44,24 @@ class ToolMonitor(BoxLayout):
         self.add_widget(scroll_test)
 
         self.master.add_widget(self)
+
+
+    def _config_gen(self):
+
+        """ Check if config file exists, if not, make one """
+
+        if not self.config_path.is_file():
+
+            config = configparser.ConfigParser()
+
+            config['Paths'] = {'Rawdata': 'Q:/DNC/Mask20/1000',
+                               'Fdata': './modules/Filehandling/Formatted.csv',
+                               'Rawdatabase': './Database/RawDatabase.xlsx',
+                               'Resultdatabase': './Database/Database.xlsx',
+                               'Tooltime': './modules/Filehandling/Time.txt',
+                               'Toolinfo': './modules/Filehandling/Tools.txt',
+                               'Unused_tools': './Database/unused_tools.txt',
+                               'Tidskalkyle': './Database/Tidskalkyle.xlsx'}
+
+            with open(self.config_path, 'w') as config_file:
+                config.write(config_file)
