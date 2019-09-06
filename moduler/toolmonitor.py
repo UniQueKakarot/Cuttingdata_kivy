@@ -26,7 +26,7 @@ class ToolMonitor(BoxLayout):
         self.config = configparser.ConfigParser()
         self.config.read(self.config_path)
         #######################################################################
-        
+
         test = GridLayout(cols=1, spacing=1, padding=10)
 
         for i in range(11):
@@ -56,13 +56,13 @@ class ToolMonitor(BoxLayout):
             config = configparser.ConfigParser()
 
             config['Paths'] = {'Rawdata': 'Q:/DNC/Mask20/1000',
-                               'Fdata': './modules/Filehandling/Formatted.csv',
-                               'Rawdatabase': './Database/RawDatabase.xlsx',
-                               'Resultdatabase': './Database/Database.xlsx',
-                               'Tooltime': './modules/Filehandling/Time.txt',
-                               'Toolinfo': './modules/Filehandling/Tools.txt',
-                               'Unused_tools': './Database/unused_tools.txt',
-                               'Tidskalkyle': './Database/Tidskalkyle.xlsx'}
+                               'Fdata': './moduler/toolmonitor_data/rawdata/Formatted.csv',
+                               'Rawdatabase': './moduler/toolmonitor_data/results/RawDatabase.xlsx',
+                               'Resultdatabase': './moduler/toolmonitor_data/results/Database.xlsx',
+                               'Tooltime': './moduler/toolmonitor_data/rawdata/Time.txt',
+                               'Toolinfo': './moduler/toolmonitor_data/rawdata/Tools.txt',
+                               'Unused_tools': './moduler/toolmonitor_data/results/unused_tools.txt',
+                               'Tidskalkyle': './moduler/toolmonitor_data/results/Tidskalkyle.xlsx'}
 
             with open(self.config_path, 'w') as config_file:
                 config.write(config_file)
