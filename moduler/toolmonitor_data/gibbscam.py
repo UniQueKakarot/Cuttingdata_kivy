@@ -6,10 +6,10 @@ import configparser
 
 import openpyxl as op
 
-from modules.exceldatabase import Database
+from moduler.toolmonitor_data.exceldatabase import Database
 
 
-class GibbsCam():
+class GibbsCam:
 
     """ This class extract all necessary information from the macrofiles Gibbscam spew out
         and make the data available in class attributes"""
@@ -26,13 +26,15 @@ class GibbsCam():
         self.tool_file = Path(self.config['Paths']['Toolinfo'])
         self.raw_database = Path(self.config['Paths']['Rawdatabase'])
 
-        # dicts that will be available to the caller
+        # -------------------------------------------------------------------------------
+        # Attributes ment to be accessed outside of the class
         self.tools = {}
         self.tools_with_time = {}
         self.ordernumber = None
         self.total_time = 0
         self.piece_count = {}
         self.max_piece_count = {}
+        #################################################################################
 
         self._tool_data()
         self._time_data()

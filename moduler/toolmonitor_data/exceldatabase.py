@@ -6,10 +6,10 @@ import configparser
 
 import openpyxl as op
 
-from modules.formatting import FileFormatter
+from moduler.toolmonitor_data.formatting import FileFormatter
 
 
-class Database():
+class Database:
 
     def __init__(self, config_path):
 
@@ -23,10 +23,11 @@ class Database():
             self.raw_file = Path(self.config['Paths']['Rawdata'])
 
         else:
-            self.raw_file = Path('./modules/Filehandling/1000')
+            self.raw_file = Path('./moduler/toolmonitor_data/rawdata/1000')
 
         self.unused_tools = []
         self.used_tools = []
+        self.special_tools = []
 
         self.column_header = ['Pot Number', 'Tool Number', 'ITN', 'Tool Life', 'Tool Life Remain',
                               'Tool Length', 'Tool Radius', 'Not Sure', 'Alarm State', 'Spindel Load Limit',
@@ -59,6 +60,7 @@ class Database():
         # Are there any problems running the unused tools methods from here?
         # Should it even be in here?
         self._tool_usage()
+        self._special_tools()
 
     def load_new_data(self, new_data):
         
@@ -100,6 +102,9 @@ class Database():
 
     def _tool_usage(self):
 
+        """ Looping through the exceldatabase and comparing new and old data to see if tool life
+            has changed """
+
         workbook = op.load_workbook(self.database)
 
         if 'Old Data' not in workbook.sheetnames:
@@ -109,8 +114,6 @@ class Database():
         worksheet_old = workbook['Old Data']
         worksheet_new = workbook['New Data']
 
-        # breakpoint()
-
         row = 2
         while worksheet_new.cell(row=row, column=5).value is not None:
 
@@ -119,6 +122,24 @@ class Database():
 
             elif worksheet_old.cell(row=row, column=5).value != worksheet_new.cell(row=row, column=5).value:
                 self.used_tools.append(worksheet_old.cell(row=row, column=2).value)
+
+            row += 1
+
+    def _special_tools(self):
+
+        """ Loop through the excel database and collect all tools within range 700 - 720 """
+
+        workbook = op.load_workbook(self.database)
+        worksheet = workbook['New Data']
+
+        # special tools range
+        special_range = {'T' + str(i) for i in range(700, 721, 1)}
+
+        row = 2
+        while worksheet.cell(row=row, column=2).value is not None:
+
+            if worksheet.cell(row=row, column=2).value in special_range:
+                self.special_tools.append(worksheet.cell(row=row, column=2).value)
 
             row += 1
 
