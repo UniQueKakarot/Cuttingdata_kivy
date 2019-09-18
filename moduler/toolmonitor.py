@@ -11,6 +11,7 @@ from kivy.uix.label import Label
 
 from moduler.toolmonitor_data.exceldatabase import Database
 from moduler.toolmonitor_data.gibbscam import GibbsCam
+from moduler.customwidgets.mylabel import MyLabel
 
 
 class ToolMonitor(BoxLayout):
@@ -19,7 +20,8 @@ class ToolMonitor(BoxLayout):
         super(ToolMonitor, self).__init__(**kwargs)
 
         self.master = tab_controll
-        self.grid1 = GridLayout(cols=1, spacing=1, padding=10)
+        # self.grid1 = GridLayout(cols=1, spacing=1, padding=10)
+        self.grid1 = BoxLayout(orientation='vertical')
         self.grid2 = GridLayout(cols=1, spacing=1, padding=10)
 
         # Config generation
@@ -37,6 +39,7 @@ class ToolMonitor(BoxLayout):
         self.exceldatabase = Database(self.config_path)
 
         self._special_tools()
+        self.skrot()
 
         self.master.add_widget(self)
 
@@ -62,29 +65,20 @@ class ToolMonitor(BoxLayout):
 
     def _special_tools(self):
 
-        # gibbs_toolinfo = GibbsCam(self.config_path)
-
         special_tools = self.exceldatabase.special_tools
         special_tools.sort()
 
-        print(f"self.special_tools: {special_tools}")
+        self.grid1.add_widget(MyLabel(text='Special Tools:', font_size=20, bcolor=[1, 1, 1, 0.2]))
 
-        # print(f"self.tools: {gibbs_toolinfo.tools}\n")
-        # print(f"self.tools_with_time: {gibbs_toolinfo.tools_with_time}\n")
-        # print(f"self.ordernumber: {gibbs_toolinfo.ordernumber}\n")
-        # print(f"self.total_time: {gibbs_toolinfo.total_time}\n")
-        # print(f"self.piece_count: {gibbs_toolinfo.piece_count}\n")
-        # print(f"self.max_piece_count: {gibbs_toolinfo.max_piece_count}\n")
+        for i in special_tools:
+            self.grid1.add_widget(Label(text=i, font_size=20))
+
+        self.add_widget(self.grid1)
 
     def _parts_possible(self):
         pass
 
     def skrot(self):
-
-        test = GridLayout(cols=1, spacing=1, padding=10)
-
-        for i in range(10):
-            test.add_widget(Label(text=f'Test{i + 1}', font_size=20))
 
         test2 = GridLayout(cols=1, spacing=7, padding=10, size_hint_y=None)
         test2.bind(minimum_height=test2.setter('height'))
@@ -95,6 +89,5 @@ class ToolMonitor(BoxLayout):
         scroll_test = ScrollView(size_hint=(1, None), size=(Window.width, Window.height - 75))
         scroll_test.add_widget(test2)
 
-        self.add_widget(test)
         self.add_widget(scroll_test)
 
