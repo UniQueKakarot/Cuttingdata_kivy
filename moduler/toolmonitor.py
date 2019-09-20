@@ -25,7 +25,7 @@ class ToolMonitor(BoxLayout):
 
         self.special_layout = BoxLayout(orientation='vertical', padding=10, size_hint_x=None, width=300)
 
-        self.controll_layout = BoxLayout(orientation='vertical', spacing=5, size_hint_x=None, width=150)
+        self.controll_layout = BoxLayout(orientation='vertical', padding=10, spacing=5, size_hint_x=None, width=150)
 
         self.pieces_layout = GridLayout(cols=1, spacing=1, padding=10, size_hint_y=None)
         self.pieces_layout.bind(minimum_height=self.pieces_layout.setter('height'))
@@ -79,7 +79,7 @@ class ToolMonitor(BoxLayout):
         btn3 = Button(text='Grab new data', size_hint_y=None, height=30)
         btn3.bind(on_press=self.run_all)
 
-        self.controll_layout.add_widget(Label(size_hint=(1, 0.05)))
+        # self.controll_layout.add_widget(Label(size_hint=(1, 0.05)))
         self.controll_layout.add_widget(btn1)
         self.controll_layout.add_widget(btn3)
         self.controll_layout.add_widget(Label())
