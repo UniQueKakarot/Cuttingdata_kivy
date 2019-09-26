@@ -61,7 +61,6 @@ class MainBody(TabbedPanel):
         ToolMonitor(self.tab4)
 
 
-
 class CncCalculators(App):
     """ Root class for the GUI application """
     def build(self):
