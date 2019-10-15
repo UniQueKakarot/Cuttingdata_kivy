@@ -2,7 +2,6 @@
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
 from moduler.customwidgets.mylabel import MyLabel
@@ -23,7 +22,7 @@ class SurfaceRa(GridLayout):
         ################################################################################################################
         feed_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
-        self.text1 = MyTextInput(hint_text="mm/m or mm/o", multiline=False, write_tab=False, font_size=20,
+        self.text1 = MyTextInput(hint_text="mm/o", multiline=False, write_tab=False, font_size=20,
                                  on_text_validate=self.calculate)
 
         feed_layout.add_widget(Label(text="Feedrate:", font_size=20))
@@ -51,7 +50,7 @@ class SurfaceRa(GridLayout):
 
         self.res_label = MyLabel(text="", font_size=30, bcolor=[1, 1, 1, 0.2])
 
-        result_layout.add_widget(MyLabel(text="Material Removal Rate: ", font_size=20, bcolor=[1, 1, 1, 0.2]))
+        result_layout.add_widget(MyLabel(text="Surface roughness: ", font_size=20, bcolor=[1, 1, 1, 0.2]))
         result_layout.add_widget(self.res_label)
 
         ################################################################################################################
@@ -64,7 +63,7 @@ class SurfaceRa(GridLayout):
 
         self.master.add_widget(self)
 
-    def calculate(self):
+    def calculate(self, touch):
         """ Calculating RA """
 
         try:
