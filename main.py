@@ -60,6 +60,9 @@ class MainBody(TabbedPanel):
 
         ToolMonitor(self.tab4)
 
+    def surface_roughness(self):
+        pass
+
 
 class CncCalculators(App):
     """ Root class for the GUI application """

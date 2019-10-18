@@ -30,3 +30,10 @@ def material_removal(cut_depth: float, cut_width: float, feedrate: float) -> flo
     """ Calculates the amount of material beeing removed in cubic centimeters """
 
     return (cut_depth * cut_width * feedrate) / 1000
+
+
+def ra(feedrate: float, nose_radius: float) -> float:
+
+    """ Calculates an estimate of the finished surface roughness """
+
+    return ((feedrate ** 2) / (nose_radius * 24)) * 1000
