@@ -107,24 +107,26 @@ class ToolMonitor(BoxLayout):
 
     def save_unused_tools(self):
 
+        """ Collecting and recording unused tools in a file to get a overview of which tools
+            are in use """
+
         # if file does not exist, write out all currently unused tools to the file unused_tools.txt
         if not self.unused_tools_path.is_file():
             with open(self.unused_tools_path, 'w') as first_output:
                 for i in self.exceldatabase.unused_tools:
                     first_output.write('{0}\n'.format(i))
 
+        # open the file containing the currently unused tools
+        # append it to collected_tools list
         collected_tools = []
         with open(self.unused_tools_path, 'r') as file_input:
             for i in file_input:
                 collected_tools.append(i[:-1])
 
-        # print(self.exceldatabase.used_tools)
-
         for used_tool in self.exceldatabase.used_tools:
             if used_tool in collected_tools:
                 # remove "unused_tool" from collected_tools
                 collected_tools.remove(used_tool)
-                # print('Hello, {0}'.format(used_tool))
 
         with open(self.unused_tools_path, 'w') as file_output:
             for i in collected_tools:
@@ -133,6 +135,9 @@ class ToolMonitor(BoxLayout):
         print('Unused tools recorded')
 
     def time_calc(self):
+
+        """ Calculates and collects the machining time of the current part side,
+            and writes it to a excel file """
 
         timedata = GibbsCam(self.config_path)
 

@@ -7,7 +7,6 @@ import openpyxl as op
 
 
 def production_time(database_path, ordernumber, total_time):
-    # breakpoint()
     # checking if the excel file exists or not, if not generate
     if not database_path.is_file():
 
