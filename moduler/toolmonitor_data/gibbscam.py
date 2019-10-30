@@ -96,12 +96,9 @@ class GibbsCam:
         # return self.tools_with_time
 
     def _pieces(self):
-        #breakpoint()
+
         """ Based on the machining time Gibbscam has calculated, calculate how many pieces we can
             machine with the tools we use before we have to replace one of them """
-
-        #TODO
-        # Figure out how to display the max amount of pieces that can be made with tool life on max
 
         # Check if the raw data excel sheet is available, if not generate it
         if not self.raw_database.is_file():
@@ -147,6 +144,10 @@ class GibbsCam:
 
                     # Shaving of an S before we convert to float, and then converting minutes to seconds
                     toollife_remain = float(toollife_remain[1:]) * 60
+
+                    #TODO
+                    # Make it so that if tool life is not 0, and not big enough for 1 part, that it still
+                    # displays 1 part
 
                     # Dividing remining tool life with machining time to get the piece count
                     time_minutes.append(int(toollife_remain / self.tools_with_time[i]))
