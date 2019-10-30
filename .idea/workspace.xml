@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ebd2c5b6-d8ba-4646-8f21-5f0b3c6376b8" name="Default Changelist" comment="" />
+    <list default="true" id="ebd2c5b6-d8ba-4646-8f21-5f0b3c6376b8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Cuttingdata_kivy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cuttingdata_kivy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Time.txt" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Time.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Tools.txt" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Tools.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,11 +30,6 @@
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="nwodCGpL" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="960" />
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
   </component>
   <component name="ProjectId" id="1QIFC143kmGQ5xHTNGPmczyTDbL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
