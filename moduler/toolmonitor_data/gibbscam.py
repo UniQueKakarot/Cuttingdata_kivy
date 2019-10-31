@@ -122,8 +122,15 @@ class GibbsCam:
                     toollife_remain = float(toollife_remain[1:]) * 60
 
                     # Dividing remining tool life with machining time to get the piece count
-                    time_minutes.append(int(toollife_remain / self.tools_with_time[i]))
+                    # and rounding the number up 1, because as long as the tool has some life
+                    # left we can switch it in to the machine and use it
+                    int_pieces = int(toollife_remain / self.tools_with_time[i])
+                    raw_pieces = toollife_remain / self.tools_with_time[i]
 
+                    if int_pieces < raw_pieces:
+                        time_minutes.append(int_pieces + 1)
+                    else:
+                        time_minutes.append(int_pieces)
                 row += 1
 
         for tools, pieces in zip(self.tools_with_time.keys(), time_minutes):
@@ -144,10 +151,6 @@ class GibbsCam:
 
                     # Shaving of an S before we convert to float, and then converting minutes to seconds
                     toollife_remain = float(toollife_remain[1:]) * 60
-
-                    #TODO
-                    # Make it so that if tool life is not 0, and not big enough for 1 part, that it still
-                    # displays 1 part
 
                     # Dividing remining tool life with machining time to get the piece count
                     time_minutes.append(int(toollife_remain / self.tools_with_time[i]))

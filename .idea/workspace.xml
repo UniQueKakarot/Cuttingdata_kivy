@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd2c5b6-d8ba-4646-8f21-5f0b3c6376b8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/gibbscam.py" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/gibbscam.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Time.txt" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Time.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Tools.txt" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Tools.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" afterDir="false" />
     </list>
