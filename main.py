@@ -8,6 +8,7 @@ from moduler.cuttingdata import Cuttingdata
 from moduler.helix_angle import HelixAngle
 from moduler.materialremoval import MaterialRemoval
 from moduler.toolmonitor import ToolMonitor
+from moduler.toolmonitor_addition_1 import ToolMonitorAddition1
 
 Config.set('graphics', 'resizable', False)
 Config.set('graphics', 'width', '800')
@@ -29,16 +30,19 @@ class MainBody(TabbedPanel):
         self.tab2 = TabbedPanelItem(text="Toolpath Angle")
         self.tab3 = TabbedPanelItem(text="Material Removal")
         self.tab4 = TabbedPanelItem(text="Tool Monitor")
+        self.tab5 = TabbedPanelItem(text="TM Addition 1")
 
         self.cuttingdata()
         self.helix_angle()
         self.material_removal()
         self.toolmonitor()
+        self.toolmonitoradd1()
 
         self.add_widget(self.tab1)
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
         self.add_widget(self.tab4)
+        self.add_widget(self.tab5)
         self.default_tab = self.tab1
 
     def cuttingdata(self):
@@ -58,6 +62,10 @@ class MainBody(TabbedPanel):
     def toolmonitor(self):
 
         ToolMonitor(self.tab4)
+
+    def toolmonitoradd1(self):
+
+        ToolMonitorAddition1(self.tab5)
 
     def surface_roughness(self):
         pass
