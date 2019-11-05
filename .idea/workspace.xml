@@ -4,6 +4,8 @@
     <list default="true" id="ebd2c5b6-d8ba-4646-8f21-5f0b3c6376b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Cuttingdata_kivy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cuttingdata_kivy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_addition_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_addition_1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +32,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Div/FactoWorld" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
