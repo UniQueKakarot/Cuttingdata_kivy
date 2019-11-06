@@ -1,3 +1,5 @@
+from pathlib import Path
+import configparser
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -5,8 +7,8 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 
 from moduler.customwidgets.mytextinput import MyTextInput
+from moduler.customwidgets.mylabel import MyLabel
 from moduler.toolmonitor_data.gibbscam import GibbsCam
-from moduler.toolmonitor_data.production_time import production_time
 
 
 class ToolMonitorAddition1(GridLayout):
@@ -18,14 +20,36 @@ class ToolMonitorAddition1(GridLayout):
         self.padding = 10
         self.spacing = 7
 
+        self.grey = [1, 1, 1, 0.2]  # color for MyLabel
+
         self.master = tab_controll
+
+        # config
+        # -------------------------------------------------------------------------------------------------------------
+        self.config_path = Path('./moduler/toolmonitor_data/config/Toolmonitor.ini')
+
+        self.config = configparser.ConfigParser()
+        self.config.read(self.config_path)
+        ###############################################################################################################
+
+        # Toolinfo
+        # -------------------------------------------------------------------------------------------------------------
+        self.gibbs_toolinfo = GibbsCam(self.config_path)
+        ###############################################################################################################
 
         # Input handling
         # -------------------------------------------------------------------------------------------------------------
         input_layout = BoxLayout(orientation='vertical')
-        self.text1 = MyTextInput(hint_text="Antall biter", multiline=False, write_tab=False, font_size=20, size_hint_y=None, height="40dp",
+        self.text1 = MyTextInput(hint_text="Antall biter",
+                                 multiline=False,
+                                 write_tab=False,
+                                 font_size=20,
+                                 size_hint_y=None,
+                                 height="40dp",
                                  on_text_validate=self.calculate)
 
+        input_layout.add_widget(MyLabel(text=f'Order: {self.gibbs_toolinfo.ordernumber}',
+                                        size_hint_y=None, height="40dp",  font_size=20, bcolor=self.grey))
         input_layout.add_widget(Label())
         input_layout.add_widget(self.text1)
         input_layout.add_widget(Label(size_hint_y=None, height="40dp"))

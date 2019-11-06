@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ebd2c5b6-d8ba-4646-8f21-5f0b3c6376b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_addition_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_addition_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/rawdata/Formatted.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/RawDatabase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/moduler/toolmonitor_data/results/Tidskalkyle.xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
