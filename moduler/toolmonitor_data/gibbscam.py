@@ -160,6 +160,12 @@ class GibbsCam:
         for tools, pieces in zip(self.tools_with_time.keys(), time_minutes):
             self.max_piece_count[tools] = pieces
 
+    def specified_number(self, number: int):
+        """ This method is for the tab TM Addition 1. You specify the number of pieces you want
+            to machine, and we bring you the tools that either needs to be replaced or the ones
+            that dont have the required tool life length """
+        pass
+
 
 if __name__ == '__main__':
 
