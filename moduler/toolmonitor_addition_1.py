@@ -48,12 +48,18 @@ class ToolMonitorAddition1(GridLayout):
                                  height="40dp",
                                  on_text_validate=self.calculate)
 
-        input_layout.add_widget(MyLabel(text=f'Order: {self.gibbs_toolinfo.ordernumber}',
-                                        size_hint_y=None, height="40dp",  font_size=20, bcolor=self.grey))
+        self.order_number_lbl = MyLabel(text=f'Order: {self.gibbs_toolinfo.ordernumber}',
+                                        size_hint_y=None, height="40dp",  font_size=20, bcolor=self.grey)
+        input_layout.add_widget(self.order_number_lbl)
+
         input_layout.add_widget(Label())
         input_layout.add_widget(self.text1)
         input_layout.add_widget(Label(size_hint_y=None, height="40dp"))
-        input_layout.add_widget(Button(text='DO IT', size_hint_y=None, height="40dp"))
+
+        btn1 = Button(text='DO IT', size_hint_y=None, height="40dp")
+        btn1.bind(on_press=self.calculate)
+        input_layout.add_widget(btn1)
+
         input_layout.add_widget(Label(size_hint_y=None, height="300dp"))
         ###############################################################################################################
 
@@ -73,5 +79,21 @@ class ToolMonitorAddition1(GridLayout):
         ###############################################################################################################
 
     def calculate(self, *args):
-        print(args)
+
+        parts = int(self.text1.text)
+
+        max_parts = self.gibbs_toolinfo.max_piece_count
+        parts_left = self.gibbs_toolinfo.piece_count
+
+        for i, j in zip(max_parts, parts_left):
+
+            if parts > max_parts[i]:
+                print('Total time not enough')
+            elif parts > parts_left[j]:
+                print('Tool change needed')
+
+        self.order_number_lbl.text = f'Order: {self.gibbs_toolinfo.ordernumber}'
+        print(f'Order: {self.gibbs_toolinfo.ordernumber}')
+        print(f'Max Antall: {self.gibbs_toolinfo.max_piece_count}')
+        print(f'Antall: {self.gibbs_toolinfo.piece_count}')
         pass
