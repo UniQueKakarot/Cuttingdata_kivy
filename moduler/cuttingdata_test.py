@@ -17,4 +17,13 @@ def test_helixangle():
     assert round(cuttingdata_calculations.helix_angle(20, 40, 1), 2) == -0.91
 
 
+def test_materialremoval():
 
+    assert cuttingdata_calculations.material_removal(2, 60, 602) == 72.24
+    assert cuttingdata_calculations.material_removal(1, 60, 602) == 36.12
+
+
+def test_ra():
+
+    assert round(cuttingdata_calculations.ra(0.2, 0.8), 2) == 2.08
+    assert round(cuttingdata_calculations.ra(0.1, 0.8), 2) == 0.52
