@@ -1,5 +1,5 @@
 import pytest
-import cuttingdata_calculations
+from moduler import cuttingdata_calculations
 
 
 def test_cuttingdata():
