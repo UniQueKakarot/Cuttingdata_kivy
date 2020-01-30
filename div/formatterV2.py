@@ -1,5 +1,7 @@
 from pathlib import Path
 
+# This one is working as intended now
+
 
 class Formatter:
 
@@ -44,7 +46,10 @@ class Formatter:
                 elif j == 'M93':
                     m93_flag = 1
 
-                if i in j:
+                test = j.split('S')
+
+                # if i in j and j[:len(i)] == i:
+                if test[0] == i:
                     if m53_flag:
                         info.append(j + self.filecontent[count+1] + self.filecontent[count+2])
                         m53_flag = 0
@@ -59,6 +64,7 @@ class Formatter:
             info = []
 
         print(self.end_tool)
+        print(self.tool_list)
         print(self.filecontent)
         print(self.tooldata)
 
