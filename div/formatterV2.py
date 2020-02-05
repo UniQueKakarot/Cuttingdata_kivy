@@ -49,8 +49,10 @@ class Formatter:
         m53_flag = 0
         m93_flag = 0
         info = []
-        for toolid in self.tool_list:
+        for toolid, potnr in zip(self.tool_list, self.pot_list):
             count = 0
+            info.append(potnr)
+            info.append(toolid)
             for line in self.filecontent:
                 if line == 'M53':
                     m53_flag = 1
