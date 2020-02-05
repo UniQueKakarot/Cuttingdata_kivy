@@ -10,12 +10,13 @@ class Formatter:
         self.rawfile = tooltable_file
         self.filecontent = []
         self.tool_list = []
+        self.pot_list = []
         self.tooldata = {}
         self.end_tool = None
 
-        self.test()
+        self.file_toolid()
 
-    def test(self):
+    def file_toolid(self):
 
         # Reading in the raw file to a list and removing unnecessary whitespace
         with open(self.rawfile) as file_content:
@@ -24,7 +25,7 @@ class Formatter:
                 i = i.strip()
                 self.filecontent.append(i)
 
-        # Popping off the first 4 elements, which is just unnecessary file header information
+        # Popping off the first 4 elements, which is lineust unnecessary file header information
         for i in range(4):
             self.filecontent.pop(0)
 
@@ -35,6 +36,7 @@ class Formatter:
         while self.filecontent[idx][0] == 'S':
             tool = self.filecontent[idx].split('T')
             self.tool_list.append('T' + tool[1])
+            self.pot_list.append(tool[0])
             idx += 1
 
         # Find the last tool number, we might use it to denote an end to a row in the tool table
@@ -47,34 +49,52 @@ class Formatter:
         m53_flag = 0
         m93_flag = 0
         info = []
-        for i in self.tool_list:
+        for toolid in self.tool_list:
             count = 0
-            for j in self.filecontent:
-                if j == 'M53':
+            for line in self.filecontent:
+                if line == 'M53':
                     m53_flag = 1
-                elif j == 'M93':
+                elif line == 'M93':
                     m93_flag = 1
 
-                test = j.split('S')
+                file_toolid = line.split('S')
 
-                if test[0] == i:
+                if file_toolid[0] == toolid:
                     if m53_flag:
-                        info.append(j + self.filecontent[count+1] + self.filecontent[count+2])
+                        info.append(self.filecontent[count+1])
+                        info.append(self.filecontent[count+2])
                         m53_flag = 0
                     elif m93_flag:
-                        info.append(j + self.filecontent[count+1])
+                        info.append(self.filecontent[count+1])
                         m93_flag = 0
                     else:
-                        info.append(j)
+                        info.append(f'S{file_toolid[1]}')
                 count += 1
 
-            self.tooldata[i] = info
+            self.tooldata[toolid] = info
             info = []
+
+        with open('.\div\self.tool_list.txt', 'w') as file1:
+            for i in self.tool_list:
+                file1.write(i + '\n')
+
+        with open('.\div\self.pot_list.txt', 'w') as file1:
+            for i in self.pot_list:
+                file1.write(f'{i}\n')
+
+        with open('.\div\self.filecontent.txt', 'w') as file1:
+            for i in self.filecontent:
+                file1.write(i + '\n')
+
+        with open('.\div\self.tooldata.txt', 'w') as file1:
+            for i in self.tooldata:
+                file1.write(f'{i}: {self.tooldata[i]}\n')
 
         #print(self.end_tool)
         #print(self.tool_list)
-        print(self.filecontent)
+        #print(self.filecontent)
         #print(self.tooldata)
+        print('Done')
 
 
 if __name__ == '__main__':
