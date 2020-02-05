@@ -17,24 +17,33 @@ class Formatter:
 
     def test(self):
 
+        # Reading in the raw file to a list and removing unnecessary whitespace
         with open(self.rawfile) as file_content:
             for i in file_content:
                 i = i.strip('\n')
                 i = i.strip()
                 self.filecontent.append(i)
 
+        # Popping off the first 4 elements, which is just unnecessary file header information
         for i in range(4):
             self.filecontent.pop(0)
 
+        # Find all lines starting with S. Lines starting with S should only appere first in the file
+        # because S denotes the tools Pot number in the magazine. Split on T which is the denote for Tool
+        # and build a list of all tool id's 
         idx = 0
         while self.filecontent[idx][0] == 'S':
             tool = self.filecontent[idx].split('T')
             self.tool_list.append('T' + tool[1])
             idx += 1
 
+        # Find the last tool number, we might use it to denote an end to a row in the tool table
         self.end_tool = self.filecontent[idx - 1].split('T')
         self.end_tool = 'T' + self.end_tool[1]
 
+        # The flags are for segments that have information regarding a tool that does not fall on the same line
+        # because of this we have to append info which is either one line ahead or two lines ahead.
+        # for each toolid we build a dict with toolid and relevant tool data for that tool 
         m53_flag = 0
         m93_flag = 0
         info = []
@@ -48,7 +57,6 @@ class Formatter:
 
                 test = j.split('S')
 
-                # if i in j and j[:len(i)] == i:
                 if test[0] == i:
                     if m53_flag:
                         info.append(j + self.filecontent[count+1] + self.filecontent[count+2])
@@ -63,13 +71,13 @@ class Formatter:
             self.tooldata[i] = info
             info = []
 
-        print(self.end_tool)
-        print(self.tool_list)
+        #print(self.end_tool)
+        #print(self.tool_list)
         print(self.filecontent)
-        print(self.tooldata)
+        #print(self.tooldata)
 
 
 if __name__ == '__main__':
 
-    tooltable = Path('./1000')
+    tooltable = Path('./div/1000')
     Formatter(tooltable)
