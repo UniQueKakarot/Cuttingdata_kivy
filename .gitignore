@@ -1,5 +1,5 @@
 
-.idea/
+idea/
 *.iml
 *.xml
 *.iml
@@ -7,3 +7,4 @@
 *.pyc
 *.pyc
 .idea/workspace.xml
+CuttDataKivy/
