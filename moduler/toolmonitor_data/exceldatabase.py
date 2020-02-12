@@ -7,6 +7,7 @@ import configparser
 import openpyxl as op
 
 from moduler.toolmonitor_data.formatting import FileFormatter
+from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 
 class Database:
@@ -42,6 +43,7 @@ class Database:
             worksheet1 = workbook.active
             worksheet1.title = "New Data"
 
+
             # call the fileformatter class from formatting.py
             raw_data = FileFormatter(self.raw_file, self.formatted_file)
 
@@ -55,6 +57,22 @@ class Database:
                 
                 row = 2
 
+            """
+            raw_data = Formatter(self.raw_file)
+
+            keys = [key for key in raw_data.tooldata]
+            for index in range(raw_data.tooldata[keys[0]]):
+                worksheet1.cell(row=1, column=index + 1, value=self.column_header[index])
+
+            row = 2
+            for key in raw_data.tooldata:
+                column = 1
+                for item in raw_data.tooldata[key]:
+                    worksheet1.cell(row=row, column=column, value=item)
+                    column += 1
+
+                row += 1
+            """
             workbook.save(self.database)
 
         # Are there any problems running the unused tools methods from here?
@@ -108,7 +126,7 @@ class Database:
         workbook = op.load_workbook(self.database)
 
         if 'Old Data' not in workbook.sheetnames:
-            self.unused_tools[0] = 0
+            self.unused_tools.append(0)
             return
 
         worksheet_old = workbook['Old Data']
