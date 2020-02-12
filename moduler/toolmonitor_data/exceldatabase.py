@@ -95,17 +95,22 @@ class Database:
 
     def _write_data(self, worksheet, new_data):
 
-        new_rawdata = FileFormatter(new_data, self.formatted_file)
+        column = 1
+        for header in self.column_header:
+            worksheet.cell(row=1, column=column, value=header)
+            column += 1
+
+        # Call the file formatter
+        raw_data = Formatter(new_data)
 
         row = 2
-        for index in range(len(new_rawdata.table)):
-            worksheet.cell(row=1, column=(index + 1), value=self.column_header[index])
+        for key in raw_data.tooldata:
+            column = 1
+            for item in raw_data.tooldata[key]:
+                worksheet.cell(row=row, column=column, value=item)
+                column += 1
 
-            for item in new_rawdata.table[index]:
-                worksheet.cell(row=row, column=(index + 1), value=item)
-                row += 1
-
-            row = 2
+            row += 1
 
     def _tool_usage(self):
 
