@@ -6,7 +6,6 @@ import configparser
 
 import openpyxl as op
 
-from moduler.toolmonitor_data.formatting import FileFormatter
 from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 

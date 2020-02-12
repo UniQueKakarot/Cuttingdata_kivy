@@ -15,6 +15,11 @@ Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '600')
 Config.write()
 
+# TODO: Look into pickling data for persistance instead of writing files, this includes the excel database.
+# TODO: Internal data storage and data generation on demand
+# TODO: Some kind of feedback on what the toolmonitor is doing and when it is done
+# TODO: Need to make a tool table parser for Heidenhain tool tables
+
 
 class MainBody(TabbedPanel):
     """ Main body for the GUI application """
