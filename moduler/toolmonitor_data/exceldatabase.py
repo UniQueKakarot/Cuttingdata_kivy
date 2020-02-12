@@ -30,12 +30,13 @@ class Database:
         self.used_tools = []
         self.special_tools = []
 
+        # We should consider putting this as an config option?
         self.column_header = ['Pot Number', 'Tool Number', 'ITN', 'Tool Life', 'Tool Life Remain',
                               'Tool Length', 'Tool Radius', 'Not Sure', 'Alarm State', 'Spindel Load Limit',
                               'Not Sure', 'Kind', 'Not Sure', 'Not Sure']
 
-        """ Check if the excel database file exists, if not create it and fill
-            the first worksheet with data """
+        # Check if the excel database file exists, if not create it and fill
+        # the first worksheet with data
 
         if not self.database.is_file():
             workbook = op.Workbook()
@@ -43,26 +44,14 @@ class Database:
             worksheet1 = workbook.active
             worksheet1.title = "New Data"
 
+            # Since this is a new database, loop through the header info and write it to DB
+            column = 1
+            for header in self.column_header:
+                worksheet1.cell(row=1, column=column, value=header)
+                column += 1
 
-            # call the fileformatter class from formatting.py
-            raw_data = FileFormatter(self.raw_file, self.formatted_file)
-
-            row = 2
-            for index in range(len(raw_data.table)):
-                worksheet1.cell(row=1, column=(index + 1), value=self.column_header[index])
-                
-                for item in raw_data.table[index]:
-                    worksheet1.cell(row=row, column=(index + 1), value=item)
-                    row += 1
-                
-                row = 2
-
-            """
+            # Call the file formatter
             raw_data = Formatter(self.raw_file)
-
-            keys = [key for key in raw_data.tooldata]
-            for index in range(raw_data.tooldata[keys[0]]):
-                worksheet1.cell(row=1, column=index + 1, value=self.column_header[index])
 
             row = 2
             for key in raw_data.tooldata:
@@ -72,7 +61,7 @@ class Database:
                     column += 1
 
                 row += 1
-            """
+
             workbook.save(self.database)
 
         # Are there any problems running the unused tools methods from here?
