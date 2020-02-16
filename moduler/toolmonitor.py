@@ -114,7 +114,7 @@ class ToolMonitor(BoxLayout):
         if not self.unused_tools_path.is_file():
             with open(self.unused_tools_path, 'w') as first_output:
                 for i in self.exceldatabase.unused_tools:
-                    first_output.write('{0}\n'.format(i))
+                    first_output.write(f'{i}\n')
 
         # open the file containing the currently unused tools
         # append it to collected_tools list
@@ -130,7 +130,7 @@ class ToolMonitor(BoxLayout):
 
         with open(self.unused_tools_path, 'w') as file_output:
             for i in collected_tools:
-                file_output.write('{0}\n'.format(i))
+                file_output.write(f'{i}\n')
 
         print('Unused tools recorded')
 
