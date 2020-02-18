@@ -5,6 +5,9 @@ from pathlib import Path
 
 from div.formatterV2 import Formatter
 
+# New_tooltable dict is not neccessary since we can get fresh data directly from the formatter
+# Store a list of Unused tools, used tools and special tools
+
 
 class Database:
 
@@ -17,6 +20,8 @@ class Database:
 
         self.new_tooltable: dict = {}
         self.old_tooltable: dict = {}
+
+
 
         self.generate_data(raw_tooltable)
 
