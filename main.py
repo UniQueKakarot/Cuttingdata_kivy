@@ -24,6 +24,8 @@ Config.write()
 
 # TODO: Need to make a tool table parser for Heidenhain tool tables
 
+# TODO: Production_time.py is getting slow, needs a rework
+
 
 class MainBody(TabbedPanel):
     """ Main body for the GUI application """
