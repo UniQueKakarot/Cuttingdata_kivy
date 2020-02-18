@@ -3,7 +3,8 @@
 
 from pathlib import Path
 
-class FileFormatter():
+
+class FileFormatter:
 
     def __init__(self, raw_filename, filename):
         self.formatting = []
@@ -30,23 +31,22 @@ class FileFormatter():
                 except ValueError:
                     s_index = -1
 
-
-                if t_index > 0 and t_index < 5:
+                if 0 < t_index < 5:
                     tool_table.insert(t_index, ',')
-                    #file1.writelines(tool_table)
+                    # file1.writelines(tool_table)
                     self.formatting.append(tool_table)
 
-                elif s_index > 0 and s_index < 5:
+                elif 0 < s_index < 5:
                     tool_table.insert(s_index, ',')
-                    #file1.writelines(tool_table)
+                    # file1.writelines(tool_table)
                     self.formatting.append(tool_table)
 
                 elif t_index == 0:
-                    #file1.writelines(tool_table)
+                    # file1.writelines(tool_table)
                     self.formatting.append(tool_table)
 
                 elif s_index == 0:
-                    #file1.writelines(tool_table)
+                    # file1.writelines(tool_table)
                     self.formatting.append(tool_table)
 
         with open(filename, 'w') as file2:
@@ -97,7 +97,6 @@ class FileFormatter():
                 elif switch == 2:
 
                     self.table[3].append(value[1].strip())
-
 
                 elif switch == 3:
 
@@ -166,12 +165,13 @@ class FileFormatter():
 
         return self.table
 
+
 if __name__ == '__main__':
 
-    #raw_data = Path('Q:/DNC/Mask20/1000')
+    # raw_data = Path('Q:/DNC/Mask20/1000')
     raw_data = Path('./1000')
     formatted_datafile = Path('./Filehandling/Formatted.csv')
 
     test1 = FileFormatter(raw_data, formatted_datafile)
-    #test1.formatted_to_table(formatted_datafile)
+    # test1.formatted_to_table(formatted_datafile)
     print(test1.table)

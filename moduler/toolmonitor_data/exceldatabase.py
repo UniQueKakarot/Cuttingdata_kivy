@@ -6,7 +6,7 @@ import configparser
 
 import openpyxl as op
 
-from moduler.toolmonitor_data.formatting import FileFormatter
+from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 
 class Database:
@@ -29,12 +29,13 @@ class Database:
         self.used_tools = []
         self.special_tools = []
 
+        # We should consider putting this as an config option?
         self.column_header = ['Pot Number', 'Tool Number', 'ITN', 'Tool Life', 'Tool Life Remain',
                               'Tool Length', 'Tool Radius', 'Not Sure', 'Alarm State', 'Spindel Load Limit',
                               'Not Sure', 'Kind', 'Not Sure', 'Not Sure']
 
-        """ Check if the excel database file exists, if not create it and fill
-            the first worksheet with data """
+        # Check if the excel database file exists, if not create it and fill
+        # the first worksheet with data
 
         if not self.database.is_file():
             workbook = op.Workbook()
@@ -42,18 +43,23 @@ class Database:
             worksheet1 = workbook.active
             worksheet1.title = "New Data"
 
-            # call the fileformatter class from formatting.py
-            raw_data = FileFormatter(self.raw_file, self.formatted_file)
+            # Since this is a new database, loop through the header info and write it to DB
+            column = 1
+            for header in self.column_header:
+                worksheet1.cell(row=1, column=column, value=header)
+                column += 1
+
+            # Call the file formatter
+            raw_data = Formatter(self.raw_file)
 
             row = 2
-            for index in range(len(raw_data.table)):
-                worksheet1.cell(row=1, column=(index + 1), value=self.column_header[index])
-                
-                for item in raw_data.table[index]:
-                    worksheet1.cell(row=row, column=(index + 1), value=item)
-                    row += 1
-                
-                row = 2
+            for key in raw_data.tooldata:
+                column = 1
+                for item in raw_data.tooldata[key]:
+                    worksheet1.cell(row=row, column=column, value=item)
+                    column += 1
+
+                row += 1
 
             workbook.save(self.database)
 
@@ -88,17 +94,22 @@ class Database:
 
     def _write_data(self, worksheet, new_data):
 
-        new_rawdata = FileFormatter(new_data, self.formatted_file)
+        column = 1
+        for header in self.column_header:
+            worksheet.cell(row=1, column=column, value=header)
+            column += 1
+
+        # Call the file formatter
+        raw_data = Formatter(new_data)
 
         row = 2
-        for index in range(len(new_rawdata.table)):
-            worksheet.cell(row=1, column=(index + 1), value=self.column_header[index])
+        for key in raw_data.tooldata:
+            column = 1
+            for item in raw_data.tooldata[key]:
+                worksheet.cell(row=row, column=column, value=item)
+                column += 1
 
-            for item in new_rawdata.table[index]:
-                worksheet.cell(row=row, column=(index + 1), value=item)
-                row += 1
-
-            row = 2
+            row += 1
 
     def _tool_usage(self):
 
@@ -108,7 +119,7 @@ class Database:
         workbook = op.load_workbook(self.database)
 
         if 'Old Data' not in workbook.sheetnames:
-            self.unused_tools[0] = 0
+            self.unused_tools.append(0)
             return
 
         worksheet_old = workbook['Old Data']

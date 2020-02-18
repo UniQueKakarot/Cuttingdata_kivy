@@ -90,11 +90,11 @@ def production_time(database_path, ordernumber, total_time):
         # converting seconds to hours, minutes and seconds
         while time != 0:
 
-            if time > 3600:
+            if time >= 3600:
                 hours += 1
                 time -= 3600
 
-            elif time > 60:
+            elif time >= 60:
                 minutes += 1
                 time -= 60
 
