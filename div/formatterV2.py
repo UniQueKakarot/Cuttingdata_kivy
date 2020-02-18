@@ -8,11 +8,11 @@ class Formatter:
     def __init__(self, tooltable_file):
 
         self.rawfile = tooltable_file
-        self.filecontent = []
-        self.tool_list = []
-        self.pot_list = []
-        self.tooldata = {}
-        self.end_tool = None
+        self.filecontent = []  # All contents of the raw tool table file
+        self.tool_list = []  # Holds all tool numbers currently in magasine
+        self.pot_list = []  # Holds all pot numbers in magasine
+        self.tooldata = {}  # Tool number as key, and each tool holds a list of all info regarding that tool
+        self.end_tool = None  # Last tool in magasine, used as a separator.
 
         self.file_toolid()
 
