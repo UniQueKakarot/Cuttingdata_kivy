@@ -14,9 +14,7 @@ class Database:
     """ The goal of this object is to store all data needed for the CncTools survailance tool,
         and then pickle it for persistant storage of data """
 
-    def __init__(self, raw_tooltable):
-
-        self.data = None
+    def __init__(self):
 
         self.new_tooltable: dict = {}
         self.old_tooltable: dict = {}
@@ -25,11 +23,22 @@ class Database:
         self.unused_tools = []
         self.special_tools = []
 
-        self.generate_data(raw_tooltable)
-        self.generate_used_tools()
-
         # Self.data should after this hold the formatter object with its "public" methods which contain lists and dicts
         # with tool information
+
+
+class DatabaseHandler:
+
+    def __init__(self, raw_tooltable, database_path):
+
+        self.data = None
+
+        if database_path.is_file():
+            self.database = pickle.load(open(database_path, 'rb'))
+        else:
+            self.database = Database()
+
+        self.generate_data(raw_tooltable)
 
     def generate_data(self, raw_tooltable):
 
@@ -47,10 +56,7 @@ class Database:
 if __name__ == '__main__':
     path1 = Path('./1000')
     path2 = Path('./Database.p')
-    if path2.is_file():
-        instance1 = pickle.load(open(path2, 'rb'))
-        print(instance1.old_tooltable)
-    else:
-        instance1 = Database(path1)
 
-    pickle.dump(instance1, open(path2, 'wb'))
+    instance1 = DatabaseHandler(path1, path2)
+
+    # pickle.dump(instance1, open(path2, 'wb'))
