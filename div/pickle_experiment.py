@@ -21,28 +21,36 @@ class Database:
         self.new_tooltable: dict = {}
         self.old_tooltable: dict = {}
 
-
+        self.used_tools = []
+        self.unused_tools = []
+        self.special_tools = []
 
         self.generate_data(raw_tooltable)
+        self.generate_used_tools()
 
         # Self.data should after this hold the formatter object with its "public" methods which contain lists and dicts
         # with tool information
 
     def generate_data(self, raw_tooltable):
 
+        """ Run the formatter to genereate new input """
+
         self.data: object = Formatter(raw_tooltable)
 
-    def work_magic(self):
+    def generate_used_tools(self):
 
-        """  """
-        pass
+        # The 4th element in the list is the toollife
+        # print(len(self.data.tooldata))
+        self.old_tooltable = self.data.tooldata
 
 
 if __name__ == '__main__':
-    path1 = Path('./div/1000')
-    path2 = Path('./div/Database.p')
+    path1 = Path('./1000')
+    path2 = Path('./Database.p')
     if path2.is_file():
-        test = pickle.load(path2)
-        test.generate_data(path1)
+        instance1 = pickle.load(open(path2, 'rb'))
+        print(instance1.old_tooltable)
     else:
         instance1 = Database(path1)
+
+    pickle.dump(instance1, open(path2, 'wb'))
