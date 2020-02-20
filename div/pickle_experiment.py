@@ -50,7 +50,15 @@ class DatabaseHandler:
 
         # The 4th element in the list is the toollife
         # print(len(self.data.tooldata))
-        self.old_tooltable = self.data.tooldata
+        if not self.database.old_tooltable:
+            self.database.old_tooltable = self.data.tooldata
+            return
+
+        else:
+            for oldkey, newkey in zip(self.database.old_tooltable, self.data.tooldata):
+                old_data, new_data = self.database.old_tooltable[oldkey], self.data.tooldata[newkey]
+                if new_data[4] != old_data[4]:
+                    self.database.used_tools.append(new_data[1])
 
 
 if __name__ == '__main__':
@@ -58,5 +66,14 @@ if __name__ == '__main__':
     path2 = Path('./Database.p')
 
     instance1 = DatabaseHandler(path1, path2)
+
+    terminate = 0
+    while not terminate:
+
+        print('Press 0 to exit')
+        choice = input()
+
+        if choice == '0':
+            terminate = 1
 
     # pickle.dump(instance1, open(path2, 'wb'))
