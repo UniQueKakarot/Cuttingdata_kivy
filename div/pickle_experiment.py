@@ -19,10 +19,10 @@ class Database:
         self.new_tooltable: dict = {}
         self.old_tooltable: dict = {}
 
-        self.used_tools = []
-        self.unused_tools = []
-        self.special_tools = []
-        self.special_tools_id = [str(toolid) for toolid in range(700, 721, 1)]  # Make this into a set instead
+        self.used_tools: list = []
+        self.unused_tools: set = set()
+        self.special_tools: list = []
+        self.special_tools_id: set = {str(toolid) for toolid in range(700, 721, 1)}  # Make this into a set instead
 
 
 class DatabaseHandler:
@@ -50,7 +50,14 @@ class DatabaseHandler:
 
         """ This method should only run the very first time this object is invoked """
 
+        # Since this is the first run we dont have anything to compare with
+        # so we just shuffle the the fresh tool table over to the old tool table
         self.database.old_tooltable = self.data.tooldata
+
+        # Add all tools in magazine to the unused tools list since we dont have
+        # any data on what tools are used or not yet
+        self.database.unused_tools = set(self.data.tool_list)
+
         pickle.dump(self.database, open(self.database_path, 'wb'))
 
     def generate_tool_data(self):
@@ -67,21 +74,29 @@ class DatabaseHandler:
             # If remainig tool life is not the same = used, else = unused
             if new_data[4] != old_data[4]:
                 self.database.used_tools.append(new_data[1])
+                # Check if used tool is in unused tools, if it is, remove it
+                if new_data[1] in self.database.unused_tools:
+                    self.database.unused_tools.remove(new_data[1])
 
-            pickle.dump(self.database, open(self.database_path, 'wb'))
+        # Move the freshly parsed toolinfo over to the old data once we are done processing it
+        self.database.old_tooltable = self.data.tooldata
+        # Save the pickle file
+        pickle.dump(self.database, open(self.database_path, 'wb'))
 
     def view_data(self):
 
         print(f'Used tools: {self.database.used_tools}')
         print(f'Unused tools: {self.database.unused_tools}')
+        print(f'Old Tooltable: {self.database.old_tooltable}')
         print(f'Special toolids: {self.database.special_tools_id}\n')
 
 
 if __name__ == '__main__':
     path1 = Path('./1000')
     path2 = Path('./Database.p')
+    path3 = Path('./1001')
 
-    instance1 = DatabaseHandler(path1, path2)
+    instance1 = DatabaseHandler(path3, path2)
 
     terminate = 0
     while not terminate:
