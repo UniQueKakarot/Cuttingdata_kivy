@@ -22,7 +22,7 @@ class Database:
         self.used_tools: list = []
         self.unused_tools: set = set()
         self.special_tools: list = []
-        self.special_tools_id: set = {str(toolid) for toolid in range(700, 721, 1)}  # Make this into a set instead
+        self.special_tools_id: set = {f'T{toolid}' for toolid in range(700, 721, 1)}  # Make this into a set instead
 
 
 class DatabaseHandler:
@@ -78,6 +78,9 @@ class DatabaseHandler:
                 if new_data[1] in self.database.unused_tools:
                     self.database.unused_tools.remove(new_data[1])
 
+            if new_data[1] in self.database.special_tools_id and new_data[1] not in self.database.special_tools:
+                self.database.special_tools.append(new_data[1])
+
         # Move the freshly parsed toolinfo over to the old data once we are done processing it
         self.database.old_tooltable = self.data.tooldata
         # Save the pickle file
@@ -88,6 +91,7 @@ class DatabaseHandler:
         print(f'Used tools: {self.database.used_tools}')
         print(f'Unused tools: {self.database.unused_tools}')
         print(f'Old Tooltable: {self.database.old_tooltable}')
+        print(f'Special tools in mag: {self.database.special_tools}')
         print(f'Special toolids: {self.database.special_tools_id}\n')
 
 
@@ -96,10 +100,16 @@ if __name__ == '__main__':
     path2 = Path('./Database.p')
     path3 = Path('./1001')
 
-    instance1 = DatabaseHandler(path3, path2)
-
+    test = 0
     terminate = 0
     while not terminate:
+
+        if test == 0:
+            instance1 = DatabaseHandler(path1, path2)
+            test = 1
+        else:
+            instance1 = DatabaseHandler(path3, path2)
+            test = 0
 
         print('Press 0 to exit')
         print("Press 1 to rerun generate_used_tools method")
@@ -111,6 +121,7 @@ if __name__ == '__main__':
         elif choice == '1':
             instance1.generate_tool_data()
         elif choice == '2':
+            instance1.generate_tool_data()
             instance1.view_data()
 
     # pickle.dump(instance1, open(path2, 'wb'))
