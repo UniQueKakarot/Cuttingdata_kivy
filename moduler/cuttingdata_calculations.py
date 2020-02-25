@@ -37,3 +37,10 @@ def ra(feedrate: float, nose_radius: float) -> float:
     """ Calculates an estimate of the finished surface roughness """
 
     return ((feedrate ** 2) / (nose_radius * 24)) * 1000
+
+
+def fz_with_round_edge(insert_dia: float, hex_value: float, cut_depth: float) -> float:
+
+    """ Calculate feed per tooth to get a constant hex with round cutting edge """
+
+    return (hex_value * insert_dia) / (2 * math.sqrt(cut_depth * insert_dia - cut_depth**2))
