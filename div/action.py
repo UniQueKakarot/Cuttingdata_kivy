@@ -2,10 +2,6 @@ from pathlib import Path
 
 import openpyxl as op
 
-#TODO
-# Calculate how many piecec I can machine before I have to replace any tool
-# How much time does it take to produce this product? "Tidskalkyle"
-
 
 def check_database(database_path):
     """ Generates the excel database if it dosent exist """

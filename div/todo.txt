@@ -1,4 +1,0 @@
-Todo list:
-
-- refactor formatting.py file
-- write tests for formatting.py

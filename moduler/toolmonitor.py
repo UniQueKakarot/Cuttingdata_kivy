@@ -62,8 +62,7 @@ class ToolMonitor(BoxLayout):
 
         #######################################################################
 
-        # Run the exceldatabase object to make sure we atleast have 1 raw database sheet
-        # to work with
+        # Instantiate DBhandler to get access to tooldata
         self.database = DatabaseHandler(self.config_path)
         self.database.generate_tool_data()
 

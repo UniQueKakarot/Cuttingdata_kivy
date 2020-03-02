@@ -101,8 +101,6 @@ class GibbsCam:
         """ Based on the machining time Gibbscam has calculated, calculate how many pieces we can
             machine with the tools we use before we have to replace one of them """
 
-        # TODO: Rewrite this to use the new database handler
-
         # Check if the raw data excel sheet is available, if not generate it
         database_handler = DatabaseHandler(self.config_path)
         tooltable = database_handler.tool_table()

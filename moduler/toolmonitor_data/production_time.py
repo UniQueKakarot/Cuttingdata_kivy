@@ -102,7 +102,7 @@ def production_time(database_path, ordernumber, total_time):
                 seconds = time
                 time -= time
 
-        converted_total_time = str(hours) + ':' + str(minutes) + ':' + str(seconds)
+        converted_total_time = f'{hours}:{minutes}:{seconds}'
 
         # writing the results to the sheet, if number already exists, overwrite time
         # in place
