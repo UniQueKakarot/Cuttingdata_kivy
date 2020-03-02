@@ -79,7 +79,7 @@ class ToolMonitor(BoxLayout):
         btn1.bind(on_press=self.redraw)
 
         btn3 = Button(text='Grab new data', size_hint_y=None, height=30)
-        btn3.bind(on_press=self.run_all)
+        btn3.bind(on_press=self.load_data)
 
         # self.controll_layout.add_widget(Label(size_hint=(1, 0.05)))
         self.controll_layout.add_widget(btn1)
@@ -99,9 +99,9 @@ class ToolMonitor(BoxLayout):
     def run_all(self, touch):
 
         self.load_data()
-        self.time_calc()
+        # self.time_calc()
 
-    def load_data(self):
+    def load_data(self, touch):
 
         self.database.load_new_data()
         print('New data loaded')
