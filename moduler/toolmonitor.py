@@ -65,6 +65,7 @@ class ToolMonitor(BoxLayout):
         # Run the exceldatabase object to make sure we atleast have 1 raw database sheet
         # to work with
         self.database = DatabaseHandler(self.config_path)
+        self.database.generate_tool_data()
 
         self._special_tools()
         self.controll_widgets()
@@ -98,42 +99,12 @@ class ToolMonitor(BoxLayout):
     def run_all(self, touch):
 
         self.load_data()
-        self.save_unused_tools()
         self.time_calc()
 
     def load_data(self):
 
-        # self.exceldatabase.load_new_data(self.raw_path)
+        self.database.load_new_data()
         print('New data loaded')
-
-    def save_unused_tools(self):
-
-        """ Collecting and recording unused tools in a file to get a overview of which tools
-            are in use """
-
-        # # if file does not exist, write out all currently unused tools to the file unused_tools.txt
-        # if not self.unused_tools_path.is_file():
-        #     with open(self.unused_tools_path, 'w') as first_output:
-        #         for i in self.exceldatabase.unused_tools:
-        #             first_output.write(f'{i}\n')
-        #
-        # # open the file containing the currently unused tools
-        # # append it to collected_tools list
-        # collected_tools = []
-        # with open(self.unused_tools_path, 'r') as file_input:
-        #     for i in file_input:
-        #         collected_tools.append(i[:-1])
-        #
-        # for used_tool in self.exceldatabase.used_tools:
-        #     if used_tool in collected_tools:
-        #         # remove "unused_tool" from collected_tools
-        #         collected_tools.remove(used_tool)
-        #
-        # with open(self.unused_tools_path, 'w') as file_output:
-        #     for i in collected_tools:
-        #         file_output.write(f'{i}\n')
-
-        print('Unused tools recorded')
 
     def time_calc(self):
 
