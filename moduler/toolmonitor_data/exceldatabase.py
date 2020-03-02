@@ -65,8 +65,8 @@ class Database:
 
         # Are there any problems running the unused tools methods from here?
         # Should it even be in here?
-        self._tool_usage()
-        self._special_tools()
+        # self._tool_usage()
+        # self._special_tools()
 
     def load_new_data(self, new_data):
         

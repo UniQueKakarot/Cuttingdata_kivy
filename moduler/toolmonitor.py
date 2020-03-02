@@ -10,7 +10,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
-from moduler.toolmonitor_data.exceldatabase import Database
+# from moduler.toolmonitor_data.exceldatabase import Database
+from moduler.toolmonitor_data.database_handler import DatabaseHandler
 from moduler.toolmonitor_data.gibbscam import GibbsCam
 from moduler.toolmonitor_data.production_time import production_time
 from moduler.customwidgets.mylabel import MyLabel
@@ -63,7 +64,7 @@ class ToolMonitor(BoxLayout):
 
         # Run the exceldatabase object to make sure we atleast have 1 raw database sheet
         # to work with
-        self.exceldatabase = Database(self.config_path)
+        self.database = DatabaseHandler(self.config_path)
 
         self._special_tools()
         self.controll_widgets()
@@ -102,7 +103,7 @@ class ToolMonitor(BoxLayout):
 
     def load_data(self):
 
-        self.exceldatabase.load_new_data(self.raw_path)
+        # self.exceldatabase.load_new_data(self.raw_path)
         print('New data loaded')
 
     def save_unused_tools(self):
@@ -110,27 +111,27 @@ class ToolMonitor(BoxLayout):
         """ Collecting and recording unused tools in a file to get a overview of which tools
             are in use """
 
-        # if file does not exist, write out all currently unused tools to the file unused_tools.txt
-        if not self.unused_tools_path.is_file():
-            with open(self.unused_tools_path, 'w') as first_output:
-                for i in self.exceldatabase.unused_tools:
-                    first_output.write(f'{i}\n')
-
-        # open the file containing the currently unused tools
-        # append it to collected_tools list
-        collected_tools = []
-        with open(self.unused_tools_path, 'r') as file_input:
-            for i in file_input:
-                collected_tools.append(i[:-1])
-
-        for used_tool in self.exceldatabase.used_tools:
-            if used_tool in collected_tools:
-                # remove "unused_tool" from collected_tools
-                collected_tools.remove(used_tool)
-
-        with open(self.unused_tools_path, 'w') as file_output:
-            for i in collected_tools:
-                file_output.write(f'{i}\n')
+        # # if file does not exist, write out all currently unused tools to the file unused_tools.txt
+        # if not self.unused_tools_path.is_file():
+        #     with open(self.unused_tools_path, 'w') as first_output:
+        #         for i in self.exceldatabase.unused_tools:
+        #             first_output.write(f'{i}\n')
+        #
+        # # open the file containing the currently unused tools
+        # # append it to collected_tools list
+        # collected_tools = []
+        # with open(self.unused_tools_path, 'r') as file_input:
+        #     for i in file_input:
+        #         collected_tools.append(i[:-1])
+        #
+        # for used_tool in self.exceldatabase.used_tools:
+        #     if used_tool in collected_tools:
+        #         # remove "unused_tool" from collected_tools
+        #         collected_tools.remove(used_tool)
+        #
+        # with open(self.unused_tools_path, 'w') as file_output:
+        #     for i in collected_tools:
+        #         file_output.write(f'{i}\n')
 
         print('Unused tools recorded')
 
@@ -164,7 +165,7 @@ class ToolMonitor(BoxLayout):
 
     def _special_tools(self):
 
-        special_tools = self.exceldatabase.special_tools
+        special_tools = self.database.special_tools()
         special_tools.sort()
 
         self.special_layout.add_widget(MyLabel(text='Special Tools:', font_size=20, bcolor=self.grey))
@@ -184,7 +185,7 @@ class ToolMonitor(BoxLayout):
 
             config['Paths'] = {'Rawdata': 'Q:/DNC/Mask20/1000',
                                'Fdata': './moduler/toolmonitor_data/rawdata/Formatted.csv',
-                               'Rawdatabase': './moduler/toolmonitor_data/results/RawDatabase.xlsx',
+                               'Rawdatabase': './moduler/toolmonitor_data/results/Database.p',
                                'Resultdatabase': './moduler/toolmonitor_data/results/Database.xlsx',
                                'Tooltime': './moduler/toolmonitor_data/rawdata/Time.txt',
                                'Toolinfo': './moduler/toolmonitor_data/rawdata/Tools.txt',

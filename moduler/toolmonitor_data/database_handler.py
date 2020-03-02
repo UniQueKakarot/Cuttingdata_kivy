@@ -2,8 +2,9 @@
 
 import pickle
 from pathlib import Path
+import configparser
 
-from div.formatterV2 import Formatter
+from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 # New_tooltable dict is not neccessary since we can get fresh data directly from the formatter
 # Store a list of Unused tools, used tools and special tools
@@ -16,8 +17,7 @@ class Database:
 
     def __init__(self):
 
-        self.new_tooltable: dict = {}
-        self.old_tooltable: dict = {}
+        self.stored_tooltable: dict = {}
 
         self.used_tools: list = []
         self.unused_tools: set = set()
@@ -27,15 +27,37 @@ class Database:
 
 class DatabaseHandler:
 
-    def __init__(self, raw_tooltable, database_path):
+    def __init__(self, config_path):
+
+        self.config_path = config_path
+
+        self.config = configparser.ConfigParser()
+        self.config.read(self.config_path)
+
+        # -----------------------------------------------------------------------------------------
 
         self.data = None
-        self.database_path = database_path
+        # self.database_path = Path(self.config['Paths']['Rawdatabase'])
+        self.database_path = Path('./moduler/toolmonitor_data/results/Database.p')
 
-        self.generate_data(raw_tooltable)
+        # This is a fallback solution, if we dont have access to the network drive location
+        # we use a local copy of the raw data table
+        if Path(self.config['Paths']['Rawdata']).is_file():
+            self.raw_tooltable = Path(self.config['Paths']['Rawdata'])
+        else:
+            self.raw_tooltable = Path('./moduler/toolmonitor_data/rawdata/1000')
 
-        if database_path.is_file():
-            self.database = pickle.load(open(database_path, 'rb'))
+        # -----------------------------------------------------------------------------------------
+
+        self.generate_data(self.raw_tooltable)
+
+        if self.database_path.is_file():
+            try:
+                self.database = pickle.load(open(self.database_path, 'rb'))
+            except pickle.UnpicklingError:
+                print('Handled a exception')
+                self.database = Database()
+                self.first_time_data()
         else:
             self.database = Database()
             self.first_time_data()
@@ -52,7 +74,7 @@ class DatabaseHandler:
 
         # Since this is the first run we dont have anything to compare with
         # so we just shuffle the the fresh tool table over to the old tool table
-        self.database.old_tooltable = self.data.tooldata
+        self.database.stored_tooltable = self.data.tooldata
 
         # Add all tools in magazine to the unused tools list since we dont have
         # any data on what tools are used or not yet
@@ -67,8 +89,8 @@ class DatabaseHandler:
         # The 4th element in the list is the toollife
         self.database.used_tools.clear()
 
-        for oldkey, newkey in zip(self.database.old_tooltable, self.data.tooldata):
-            old_data = self.database.old_tooltable[oldkey]
+        for oldkey, newkey in zip(self.database.stored_tooltable, self.data.tooldata):
+            old_data = self.database.stored_tooltable[oldkey]
             new_data = self.data.tooldata[newkey]
 
             # If remainig tool life is not the same = used, else = unused
@@ -82,46 +104,63 @@ class DatabaseHandler:
                 self.database.special_tools.append(new_data[1])
 
         # Move the freshly parsed toolinfo over to the old data once we are done processing it
-        self.database.old_tooltable = self.data.tooldata
+        self.database.stored_tooltable = self.data.tooldata
         # Save the pickle file
         pickle.dump(self.database, open(self.database_path, 'wb'))
+
+    def load_new_data(self):
+
+        self.data = Formatter(self.raw_tooltable)
+
+        if self.data.tooldata == self.database.stored_tooltable:
+            print('No Changes to tooldata')
+        else:
+            self.generate_tool_data()
+
+    def tool_table(self):
+
+        return self.database.stored_tooltable
+
+    def special_tools(self):
+
+        return self.database.special_tools
 
     def view_data(self):
 
         print(f'Used tools: {self.database.used_tools}')
         print(f'Unused tools: {self.database.unused_tools}')
-        print(f'Old Tooltable: {self.database.old_tooltable}')
+        print(f'Old Tooltable: {self.database.stored_tooltable}')
         print(f'Special tools in mag: {self.database.special_tools}')
         print(f'Special toolids: {self.database.special_tools_id}\n')
 
 
-if __name__ == '__main__':
-    path1 = Path('./1000')
-    path2 = Path('./Database.p')
-    path3 = Path('./1001')
-
-    test = 0
-    terminate = 0
-    while not terminate:
-
-        if test == 0:
-            instance1 = DatabaseHandler(path1, path2)
-            test = 1
-        else:
-            instance1 = DatabaseHandler(path3, path2)
-            test = 0
-
-        print('Press 0 to exit')
-        print("Press 1 to rerun generate_used_tools method")
-        print("Press 2 to view data\n")
-        choice = input()
-
-        if choice == '0':
-            terminate = 1
-        elif choice == '1':
-            instance1.generate_tool_data()
-        elif choice == '2':
-            instance1.generate_tool_data()
-            instance1.view_data()
-
-    # pickle.dump(instance1, open(path2, 'wb'))
+# if __name__ == '__main__':
+#     path1 = Path('./1000')
+#     path2 = Path('./Database.p')
+#     path3 = Path('./1001')
+#
+#     test = 0
+#     terminate = 0
+#     while not terminate:
+#
+#         if test == 0:
+#             instance1 = DatabaseHandler(path1, path2)
+#             test = 1
+#         else:
+#             instance1 = DatabaseHandler(path3, path2)
+#             test = 0
+#
+#         print('Press 0 to exit')
+#         print("Press 1 to rerun generate_used_tools method")
+#         print("Press 2 to view data\n")
+#         choice = input()
+#
+#         if choice == '0':
+#             terminate = 1
+#         elif choice == '1':
+#             instance1.generate_tool_data()
+#         elif choice == '2':
+#             instance1.generate_tool_data()
+#             instance1.view_data()
+#
+#     # pickle.dump(instance1, open(path2, 'wb'))
