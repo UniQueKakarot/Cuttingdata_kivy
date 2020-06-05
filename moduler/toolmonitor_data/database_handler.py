@@ -19,10 +19,13 @@ class Database:
 
         self.stored_tooltable: dict = {}
 
-        self.used_tools: list = []
-        self.unused_tools: set = set()
-        self.special_tools: list = []
-        self.special_tools_id: set = {f'T{toolid}' for toolid in range(700, 721, 1)}  # Make this into a set instead
+        self.used_tools: list = []  # Store tools that have their lifetime reduced
+        self.unused_tools: set = set()  # A record of tools that have not been used
+        self.special_tools: list = []  # A list of tool id's for swappable tools
+        self.special_tools_id: set = {f'T{toolid}' for toolid in range(700, 721, 1)}  # Numbers considered for special tools
+
+        self.raw_timedata: dict = {}  #
+        self.timedata_results: dict = {}
 
 
 class DatabaseHandler:
