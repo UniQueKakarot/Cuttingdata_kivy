@@ -4,7 +4,7 @@ import pickle
 from pathlib import Path
 import configparser
 
-from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
+from div.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 # New_tooltable dict is not neccessary since we can get fresh data directly from the formatter
 # Store a list of Unused tools, used tools and special tools

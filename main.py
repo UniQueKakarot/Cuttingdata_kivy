@@ -7,8 +7,8 @@ from kivy.config import Config
 from moduler.cuttingdata import Cuttingdata
 from moduler.helix_angle import HelixAngle
 from moduler.materialremoval import MaterialRemoval
-from moduler.toolmonitor import ToolMonitor
-from moduler.toolmonitor_addition_1 import ToolMonitorAddition1
+from div.toolmonitor import ToolMonitor
+from div.toolmonitor_addition_1 import ToolMonitorAddition1
 
 Config.set('graphics', 'resizable', False)
 Config.set('graphics', 'width', '800')

@@ -6,7 +6,7 @@ import configparser
 
 import openpyxl as op
 
-from moduler.toolmonitor_data.tooltable_formatter_a66 import Formatter
+from div.toolmonitor_data.tooltable_formatter_a66 import Formatter
 
 
 class Database:

@@ -2,7 +2,6 @@
 import configparser
 from pathlib import Path
 
-import kivy
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
@@ -11,9 +10,9 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 # from moduler.toolmonitor_data.exceldatabase import Database
-from moduler.toolmonitor_data.database_handler import DatabaseHandler
-from moduler.toolmonitor_data.gibbscam import GibbsCam
-from moduler.toolmonitor_data.production_time import production_time
+from div.toolmonitor_data.database_handler import DatabaseHandler
+from div.toolmonitor_data.gibbscam import GibbsCam
+from div.toolmonitor_data.production_time import production_time
 from moduler.customwidgets.mylabel import MyLabel
 
 

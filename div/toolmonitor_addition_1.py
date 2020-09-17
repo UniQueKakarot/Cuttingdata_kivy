@@ -8,7 +8,7 @@ from kivy.uix.button import Button
 
 from moduler.customwidgets.mytextinput import MyTextInput
 from moduler.customwidgets.mylabel import MyLabel
-from moduler.toolmonitor_data.gibbscam import GibbsCam
+from div.toolmonitor_data.gibbscam import GibbsCam
 
 
 class ToolMonitorAddition1(GridLayout):
