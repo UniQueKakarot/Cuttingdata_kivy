@@ -79,16 +79,21 @@ class RoundEdge(GridLayout):
         try:
             ap = float(self.text1.text.replace(',', '.'))
         except ValueError:
-            ap = 1
+            ap = 0
 
         try:
             ae = float(self.text2.text.replace(',', '.'))
         except ValueError:
-            ae = 1
+            ae = 0
 
         try:
             feed = float(self.text3.text.replace(',', '.'))
         except ValueError:
-            feed = 1
+            feed = 0
 
-        self.res_label.text = str(round(fz_with_round_edge(ap, ae, feed), 2))
+        result = fz_with_round_edge(ap, ae, feed)
+
+        if result == "Error":
+            self.res_label.text = result
+        else:
+            self.res_label.text = str(round(result, 2))

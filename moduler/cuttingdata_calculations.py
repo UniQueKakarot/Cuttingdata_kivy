@@ -42,5 +42,9 @@ def ra(feedrate: float, nose_radius: float) -> float:
 def fz_with_round_edge(insert_dia: float, hex_value: float, cut_depth: float) -> float:
 
     """ Calculate feed per tooth to get a constant hex with round cutting edge """
+    try:
+        result = (hex_value * insert_dia) / (2 * math.sqrt(cut_depth * insert_dia - cut_depth**2))
+    except:
+        result = "Error"
 
-    return (hex_value * insert_dia) / (2 * math.sqrt(cut_depth * insert_dia - cut_depth**2))
+    return result
