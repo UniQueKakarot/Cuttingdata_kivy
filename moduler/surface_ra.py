@@ -51,7 +51,7 @@ class SurfaceRa(GridLayout):
 
         self.res_label = MyLabel(text="", font_size=30, bcolor=[1, 1, 1, 0.2])
 
-        result_layout.add_widget(MyLabel(text="Material Removal Rate: ", font_size=20, bcolor=[1, 1, 1, 0.2]))
+        result_layout.add_widget(MyLabel(text="RA: ", font_size=20, bcolor=[1, 1, 1, 0.2]))
         result_layout.add_widget(self.res_label)
 
         ################################################################################################################
@@ -64,7 +64,7 @@ class SurfaceRa(GridLayout):
 
         self.master.add_widget(self)
 
-    def calculate(self):
+    def calculate(self, touch):
         """ Calculating RA """
 
         try:

@@ -7,10 +7,10 @@ from kivy.config import Config
 from moduler.cuttingdata import Cuttingdata
 from moduler.helix_angle import HelixAngle
 from moduler.materialremoval import MaterialRemoval
-from div.toolmonitor import ToolMonitor
-from div.toolmonitor_addition_1 import ToolMonitorAddition1
+from moduler.surface_ra import SurfaceRa
+from moduler.roundedgefeed import RoundEdge
 
-Config.set('graphics', 'resizable', False)
+Config.set('graphics', 'resizable', True)
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '600')
 Config.write()
@@ -43,20 +43,20 @@ class MainBody(TabbedPanel):
         self.tab1 = TabbedPanelItem(text="Cutting Speed")
         self.tab2 = TabbedPanelItem(text="Toolpath Angle")
         self.tab3 = TabbedPanelItem(text="Material Removal")
-        self.tab4 = TabbedPanelItem(text="Tool Monitor")
-        self.tab5 = TabbedPanelItem(text="TM Addition 1")
+        self.tab4 = TabbedPanelItem(text="RA")
+        self.tab5 = TabbedPanelItem(text="R Edge Feed")
 
         self.cuttingdata()
         self.helix_angle()
         self.material_removal()
-        # self.toolmonitor()
-        # self.toolmonitoradd1()
+        self.surface_roughness()
+        self.round_edge()
 
         self.add_widget(self.tab1)
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
-        # self.add_widget(self.tab4)
-        # self.add_widget(self.tab5)
+        self.add_widget(self.tab4)
+        self.add_widget(self.tab5)
         self.default_tab = self.tab1
 
     def cuttingdata(self):
@@ -73,16 +73,13 @@ class MainBody(TabbedPanel):
 
         MaterialRemoval(self.tab3)
 
-    def toolmonitor(self):
-
-        ToolMonitor(self.tab4)
-
-    def toolmonitoradd1(self):
-
-        ToolMonitorAddition1(self.tab5)
-
     def surface_roughness(self):
-        pass
+
+        SurfaceRa(self.tab4)
+
+    def round_edge(self):
+
+        RoundEdge(self.tab5)
 
 
 class CncCalculators(App):
