@@ -49,14 +49,14 @@ class MainBody(TabbedPanel):
         self.cuttingdata()
         self.helix_angle()
         self.material_removal()
-        self.toolmonitor()
-        self.toolmonitoradd1()
+        # self.toolmonitor()
+        # self.toolmonitoradd1()
 
         self.add_widget(self.tab1)
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
-        self.add_widget(self.tab4)
-        self.add_widget(self.tab5)
+        # self.add_widget(self.tab4)
+        # self.add_widget(self.tab5)
         self.default_tab = self.tab1
 
     def cuttingdata(self):
