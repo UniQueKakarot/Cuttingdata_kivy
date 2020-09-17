@@ -16,6 +16,7 @@ Config.set('graphics', 'height', '600')
 Config.write()
 
 # TODO: Look into pickling data for persistance instead of writing files, this includes the excel database.
+# A pickled database system is in place
 
 # TODO: Internal data storage and data generation on demand, meaning instead of writing out data beforehand
 # TODO: make it possible to generate the data when you need it
@@ -25,6 +26,8 @@ Config.write()
 # TODO: Need to make a tool table parser for Heidenhain tool tables
 
 # TODO: Production_time.py is getting slow, needs a rework
+
+# TODO: Write moar tests
 
 
 class MainBody(TabbedPanel):

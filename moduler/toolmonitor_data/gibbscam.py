@@ -6,7 +6,8 @@ import configparser
 
 import openpyxl as op
 
-from moduler.toolmonitor_data.exceldatabase import Database
+# from moduler.toolmonitor_data.exceldatabase import Database
+from moduler.toolmonitor_data.database_handler import DatabaseHandler
 
 
 class GibbsCam:
@@ -100,40 +101,31 @@ class GibbsCam:
         """ Based on the machining time Gibbscam has calculated, calculate how many pieces we can
             machine with the tools we use before we have to replace one of them """
 
-        # TODO: Rewrite this to use the new database handler
-
         # Check if the raw data excel sheet is available, if not generate it
-        if not self.raw_database.is_file():
-            Database(self.config_path)
+        database_handler = DatabaseHandler(self.config_path)
+        tooltable = database_handler.tool_table()
 
-        workbook = op.load_workbook(self.raw_database)
-        worksheet = workbook['New Data']
+        # workbook = op.load_workbook(self.raw_database)
+        # worksheet = workbook['New Data']
 
         time_minutes = []  # Holds timeinfo in minutes instead of seconds
         for i in self.tools_with_time.keys():
 
-            tool_id = f'T{i}'
-            row = 1
-            while worksheet.cell(row=row, column=2).value is not None:
+            toollife_remain = tooltable[f'T{i}'][4]
 
-                if worksheet.cell(row=row, column=2).value == tool_id:
+            # Shaving of an S before we convert to float, and then converting minutes to seconds
+            toollife_remain = float(toollife_remain[1:]) * 60
 
-                    toollife_remain = worksheet.cell(row=row, column=5).value
+            # Dividing remining tool life with machining time to get the piece count
+            # and rounding the number up 1, because as long as the tool has some life
+            # left we can switch it in to the machine and use it
+            int_pieces = int(toollife_remain / self.tools_with_time[i])
+            raw_pieces = toollife_remain / self.tools_with_time[i]
 
-                    # Shaving of an S before we convert to float, and then converting minutes to seconds
-                    toollife_remain = float(toollife_remain[1:]) * 60
-
-                    # Dividing remining tool life with machining time to get the piece count
-                    # and rounding the number up 1, because as long as the tool has some life
-                    # left we can switch it in to the machine and use it
-                    int_pieces = int(toollife_remain / self.tools_with_time[i])
-                    raw_pieces = toollife_remain / self.tools_with_time[i]
-
-                    if int_pieces < raw_pieces:
-                        time_minutes.append(int_pieces + 1)
-                    else:
-                        time_minutes.append(int_pieces)
-                row += 1
+            if int_pieces < raw_pieces:
+                time_minutes.append(int_pieces + 1)
+            else:
+                time_minutes.append(int_pieces)
 
         for tools, pieces in zip(self.tools_with_time.keys(), time_minutes):
             self.piece_count[tools] = pieces
@@ -143,21 +135,13 @@ class GibbsCam:
         time_minutes = []  # Holds timeinfo in minutes instead of seconds
         for i in self.tools_with_time.keys():
 
-            tool_id = f'T{i}'
-            row = 1
-            while worksheet.cell(row=row, column=2).value is not None:
+            toollife_remain = tooltable[f'T{i}'][3]
 
-                if worksheet.cell(row=row, column=2).value == tool_id:
+            # Shaving of an S before we convert to float, and then converting minutes to seconds
+            toollife_remain = float(toollife_remain[1:]) * 60
 
-                    toollife_remain = worksheet.cell(row=row, column=4).value
-
-                    # Shaving of an S before we convert to float, and then converting minutes to seconds
-                    toollife_remain = float(toollife_remain[1:]) * 60
-
-                    # Dividing remining tool life with machining time to get the piece count
-                    time_minutes.append(int(toollife_remain / self.tools_with_time[i]))
-
-                row += 1
+            # Dividing remining tool life with machining time to get the piece count
+            time_minutes.append(int(toollife_remain / self.tools_with_time[i]))
 
         for tools, pieces in zip(self.tools_with_time.keys(), time_minutes):
             self.max_piece_count[tools] = pieces
