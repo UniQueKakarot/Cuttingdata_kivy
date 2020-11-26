@@ -8,3 +8,4 @@ idea/
 CuttDataKivy/
 venv/
 moduler/*.pyc
+moduler/__pycache__/
