@@ -91,4 +91,9 @@ class MaterialRemoval(GridLayout):
         except ValueError:
             feed = 1
 
-        self.res_label.text = str(round(material_removal(ap, ae, feed), 2)) + ' cm³/min'
+        result = material_removal(ap, ae, feed)
+
+        if result == "Error":
+            self.res_label.text = "Error"
+        else:
+            self.res_label.text = str(round(result, 2)) + ' cm³/min'

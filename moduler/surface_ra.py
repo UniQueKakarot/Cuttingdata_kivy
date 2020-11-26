@@ -77,6 +77,11 @@ class SurfaceRa(GridLayout):
         except ValueError:
             nose_radius = 0
 
-        self.res_label.text = str(round(ra(feed, nose_radius), 2))
+        result = ra(feed, nose_radius)
+
+        if result == "Error":
+            self.res_label.text = "Error"
+        else:
+            self.res_label.text = str(round(result, 2))
 
 
