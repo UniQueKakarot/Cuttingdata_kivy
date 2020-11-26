@@ -91,4 +91,9 @@ class HelixAngle(GridLayout):
         except ValueError:
             step = 1
 
-        self.res_label.text = str(round(helix_angle(holed, milld, step), 2))
+        result = helix_angle(holed, milld, step)
+
+        if result == "Error":
+            self.res_label.text = "Error"
+        else:
+            self.res_label.text = str(round(result, 2))

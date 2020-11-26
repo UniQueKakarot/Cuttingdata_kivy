@@ -119,6 +119,13 @@ class Cuttingdata(GridLayout):
         # Cuttingdata function is in its own file
         calculation_result = cuttingdata(cuttingspeed, milldia, numz, feedprtooth)
 
-        self.res_label1.text = str(int(round(calculation_result[0], 0)))
-        self.res_label2.text = str(int(round(calculation_result[1], 0)))
+        if calculation_result[0] == "Error":
+            self.res_label1.text = "Error"
+        else:
+            self.res_label1.text = str(int(round(calculation_result[0], 0)))
+
+        if calculation_result[1] == "Error":
+            self.res_label2.text = "Error"
+        else:
+            self.res_label2.text = str(int(round(calculation_result[1], 0)))
 

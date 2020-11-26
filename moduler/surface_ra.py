@@ -70,13 +70,18 @@ class SurfaceRa(GridLayout):
         try:
             feed = float(self.text1.text.replace(',', '.'))
         except ValueError:
-            feed = 1
+            feed = 0
 
         try:
             nose_radius = float(self.text2.text.replace(',', '.'))
         except ValueError:
-            nose_radius = 1
+            nose_radius = 0
 
-        self.res_label.text = str(round(ra(feed, nose_radius), 2))
+        result = ra(feed, nose_radius)
+
+        if result == "Error":
+            self.res_label.text = "Error"
+        else:
+            self.res_label.text = str(round(result, 2))
 
 
