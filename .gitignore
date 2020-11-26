@@ -6,3 +6,5 @@ idea/
 *.pyc
 .idea/workspace.xml
 CuttDataKivy/
+venv/
+moduler/*.pyc
