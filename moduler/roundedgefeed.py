@@ -21,31 +21,31 @@ class RoundEdge(GridLayout):
         self.spacing = 7
 
         ################################################################################################################
-        doc_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
+        insert_dia_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
         self.text1 = MyTextInput(hint_text="insert dia", multiline=False, write_tab=False, font_size=20,
                                  on_text_validate=self.calculate)
 
-        doc_layout.add_widget(Label(text="Insert Diameter:", font_size=20))
-        doc_layout.add_widget(self.text1)
+        insert_dia_layout.add_widget(Label(text="Insert Diameter:", font_size=20))
+        insert_dia_layout.add_widget(self.text1)
 
         ################################################################################################################
-        woc_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
+        hex_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
         self.text2 = MyTextInput(hint_text="hex", multiline=False, write_tab=False, font_size=20,
                                  on_text_validate=self.calculate)
 
-        woc_layout.add_widget(Label(text="Hex:", font_size=20))
-        woc_layout.add_widget(self.text2)
+        hex_layout.add_widget(Label(text="Hex:", font_size=20))
+        hex_layout.add_widget(self.text2)
 
         ################################################################################################################
-        feed_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
+        doc_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height="40dp")
 
         self.text3 = MyTextInput(hint_text="ap", multiline=False, write_tab=False, font_size=20,
                                  on_text_validate=self.calculate)
 
-        feed_layout.add_widget(Label(text="Depth of cut:", font_size=20))
-        feed_layout.add_widget(self.text3)
+        doc_layout.add_widget(Label(text="Depth of cut:", font_size=20))
+        doc_layout.add_widget(self.text3)
 
         ################################################################################################################
         button_layout = BoxLayout(size_hint_y=None, height="40dp")
@@ -65,9 +65,9 @@ class RoundEdge(GridLayout):
 
         ################################################################################################################
 
+        self.add_widget(insert_dia_layout)
+        self.add_widget(hex_layout)
         self.add_widget(doc_layout)
-        self.add_widget(woc_layout)
-        self.add_widget(feed_layout)
         self.add_widget(button_layout)
         self.add_widget(spacer_layout)
         self.add_widget(result_layout)

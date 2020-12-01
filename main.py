@@ -9,6 +9,7 @@ from moduler.helix_angle import HelixAngle
 from moduler.materialremoval import MaterialRemoval
 from moduler.surface_ra import SurfaceRa
 from moduler.roundedgefeed import RoundEdge
+from moduler.midpoint_calc import MidPoint
 
 Config.set('graphics', 'resizable', True)
 Config.set('graphics', 'width', '800')
@@ -45,18 +46,21 @@ class MainBody(TabbedPanel):
         self.tab3 = TabbedPanelItem(text="Material Removal")
         self.tab4 = TabbedPanelItem(text="RA")
         self.tab5 = TabbedPanelItem(text="R Edge Feed")
+        self.tab6 = TabbedPanelItem(text="Tolerance")
 
         self.cuttingdata()
         self.helix_angle()
         self.material_removal()
         self.surface_roughness()
         self.round_edge()
+        self.midpoint()
 
         self.add_widget(self.tab1)
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
         self.add_widget(self.tab4)
         self.add_widget(self.tab5)
+        self.add_widget(self.tab6)
         self.default_tab = self.tab1
 
     def cuttingdata(self):
@@ -80,6 +84,10 @@ class MainBody(TabbedPanel):
     def round_edge(self):
 
         RoundEdge(self.tab5)
+
+    def midpoint(self):
+
+        MidPoint(self.tab6)
 
 
 class CncCalculators(App):
