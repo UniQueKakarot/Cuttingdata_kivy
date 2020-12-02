@@ -9,3 +9,5 @@ CuttDataKivy/
 venv/
 moduler/*.pyc
 moduler/__pycache__/
+dist/
+build/
